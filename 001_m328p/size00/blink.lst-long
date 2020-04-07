@@ -1,0 +1,72 @@
+   1               		.file	"blink.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.global	read_and_convert
+  12               	read_and_convert:
+  13               	.LFB0:
+  14               		.file 1 "blink.c"
+   1:blink.c       **** // vim: ft=c sts=2 sw=2 et si ai:
+   2:blink.c       **** //
+   3:blink.c       **** 
+   4:blink.c       **** #include <avr/io.h>
+   5:blink.c       **** /* Read UART value and convert it to ASCII*/
+   6:blink.c       **** char read_and_convert(void) { return (PINB + 0x48); }
+  15               		.loc 1 6 0
+  16               		.cfi_startproc
+  17               	/* prologue: function */
+  18               	/* frame size = 0 */
+  19               	/* stack size = 0 */
+  20               	.L__stack_usage = 0
+  21               		.loc 1 6 0
+  22 0000 83B1      		in r24,0x3
+  23 0002 885B      		subi r24,lo8(-(72))
+  24 0004 0895      		ret
+  25               		.cfi_endproc
+  26               	.LFE0:
+  28               		.section	.text.startup,"ax",@progbits
+  29               	.global	main
+  31               	main:
+  32               	.LFB1:
+   7:blink.c       **** /* Write to UART*/
+   8:blink.c       **** int main(void) { UDR0 = read_and_convert(); }
+  33               		.loc 1 8 0
+  34               		.cfi_startproc
+  35               	/* prologue: function */
+  36               	/* frame size = 0 */
+  37               	/* stack size = 0 */
+  38               	.L__stack_usage = 0
+  39               	.LBB4:
+  40               	.LBB5:
+   6:blink.c       **** /* Write to UART*/
+  41               		.loc 1 6 0
+  42 0000 83B1      		in r24,0x3
+  43 0002 885B      		subi r24,lo8(-(72))
+  44               	.LBE5:
+  45               	.LBE4:
+  46               		.loc 1 8 0
+  47 0004 8093 C600 		sts 198,r24
+  48 0008 80E0      		ldi r24,0
+  49 000a 90E0      		ldi r25,0
+  50 000c 0895      		ret
+  51               		.cfi_endproc
+  52               	.LFE1:
+  54               		.text
+  55               	.Letext0:
+  56               		.file 2 "/usr/lib/avr/include/stdint.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 blink.c
+     /tmp/ccQJghxJ.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccQJghxJ.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccQJghxJ.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccQJghxJ.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccQJghxJ.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccQJghxJ.s:12     .text:0000000000000000 read_and_convert
+     /tmp/ccQJghxJ.s:31     .text.startup:0000000000000000 main
+
+NO UNDEFINED SYMBOLS
