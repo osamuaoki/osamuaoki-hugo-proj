@@ -1,0 +1,20 @@
+#!/bin/sh -e
+#
+# To use this, please give HEX file name as the argument "$1"
+#
+# This is intended for: ATmega32u4 on TEENSY 2.0 (compat.) board
+#
+# LOW FUSE:
+#   CKDIV8    enabled  (0) devide clock by 8 enabled
+#   SUT1      enabled  (0)
+# HIGH FUSE
+#  (BOOTRST)  disabled (1) boot reset vector
+#   SPIEN     enabled  (0) serial program
+#   BOOTSZ    512B        -- start @ 0xFE00
+# EXTENDED FUSE
+#   HWBE      enabled  (0) hardware boot
+#   BOD       2.4V         brown-out detection
+# See https://github.com/osamuaoki/avrdude-friend/wiki/AVR-fuse
+#     https://eleccelerator.com/fusecalc/fusecalc.php
+sudo avrdude -v -p atmega32u4 -c avrisp2 -Pusb -e -U flash:w:$1 \
+     -U lfuse:w:0x5f:m -U hfuse:w:0xdf:m -U efuse:w:0xc4:m

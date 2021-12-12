@@ -1,0 +1,5 @@
+*.hex
+*.log
+*~
+hid_bootloader_cli
+hid_bootloader_loader.py

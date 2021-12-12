@@ -1,0 +1,28 @@
+#!/bin/sh -ex
+# set up work environment from Debian
+### sudo apt-get update && sudo apt-get install gcc-avr avr-libc binutils-avr
+# set up extra tools
+[ -e hid_bootloader_cli ] || wget https://github.com/osamuaoki/lufa/raw/osamu/Bootloaders/HID/HostLoaderApp/hid_bootloader_cli
+chmod 755 hid_bootloader_cli
+[ -e hid_bootloader_loader.py ] || wget https://github.com/osamuaoki/lufa/raw/osamu/Bootloaders/HID/HostLoaderApp_Python/hid_bootloader_loader.py
+chmod 755 hid_bootloader_loader.py
+# Download required bootloader hex files
+[ -e nanoBoot.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/nanoBoot/led-hex/nanoBoot.hex
+[ -e BootloaderCDC.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/CDC-teensy2pp/BootloaderCDC.hex
+[ -e BootloaderDFU.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/DFU-teensy2pp/BootloaderDFU.hex
+[ -e BootloaderHID.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/HID-teensy2pp/BootloaderHID.hex
+[ -e BootloaderHID_orig.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/HID-teensy2pp/BootloaderHID_orig.hex
+# Build blinks
+make -C ../003_m32u4/blink1 | tee build-m32u4-blink1.log
+cp ../003_m32u4/blink1/blink1.hex m32u4-blink1.hex
+make -C ../003_m32u4/blink2 | tee build-m32u4-blink2.log
+cp ../003_m32u4/blink2/blink2.hex m32u4-blink2.hex
+make -C ../004_usb1286/blink1 | tee build-usb1286-blink1.log
+cp ../004_usb1286/blink1/blink1.hex usb1286-blink1.hex
+make -C ../004_usb1286/blink2 | tee build-usb1286-blink2.log
+cp ../004_usb1286/blink2/blink2.hex usb1286-blink2.hex
+
+
+
+
+

@@ -1,0 +1,20 @@
+#!/bin/sh -e
+#
+# To use this, please give HEX file name as the argument "$1"
+#
+# This is intended for: AT90USB1286 on TEENSY 2.0++ (compat.) board
+#
+# LOW FUSE:
+#   CKDIV8    enabled  (0) devide clock by 8 enabled
+#   SUT1      enabled  (0)
+# HIGH FUSE
+#  (BOOTRST)  disabled (1) boot reset vector
+#   SPIEN     enabled  (0) serial program
+#   BOOTSZ    4KB (4096B) -- start @ 0xF800
+# EXTENDED FUSE
+#   HWBE      enabled  (0) hardware boot
+#   BOD       2.4V         brown-out detection
+# See https://github.com/osamuaoki/avrdude-friend/wiki/AVR-fuse
+#     https://eleccelerator.com/fusecalc/fusecalc.php
+sudo avrdude -v -p at90usb1286 -c avrisp2 -Pusb -e -U flash:w:$1 \
+     -U lfuse:w:0x5f:m -U hfuse:w:0xdf:m -U efuse:w:0xf4:m

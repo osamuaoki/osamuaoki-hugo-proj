@@ -1,0 +1,2 @@
+#!/bin/sh -e
+sudo avrdude -v -p at90usb1286 -c avrisp2 -Pusb -F
