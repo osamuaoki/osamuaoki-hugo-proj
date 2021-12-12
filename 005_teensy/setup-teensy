@@ -1,4 +1,5 @@
 #!/bin/sh -ex
+# vim:se sw=2 ts=2 sts=2 et ai:
 # set up work environment from Debian
 ### sudo apt-get update && sudo apt-get install gcc-avr avr-libc binutils-avr
 # set up extra tools
@@ -9,9 +10,15 @@ chmod 755 hid_bootloader_loader.py
 # Download required bootloader hex files
 [ -e nanoBoot.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/nanoBoot/led-hex/nanoBoot.hex
 [ -e BootloaderCDC.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/CDC-teensy2pp/BootloaderCDC.hex
+# Download optional bootloader hex files
 [ -e BootloaderDFU.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/DFU-teensy2pp/BootloaderDFU.hex
 [ -e BootloaderHID.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/HID-teensy2pp/BootloaderHID.hex
 [ -e BootloaderHID_orig.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/HID-teensy2pp/BootloaderHID_orig.hex
+[ -e BootloaderHIDxxxx_orig.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/HID-teensy2pp/BootloaderHID_orig.hex
+[ -e HID-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex ] || http://fourwalledcubicle.com/files/LUFA/Bootloaders/HID/HID-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex
+[ -e DFU-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex ] || http://fourwalledcubicle.com/files/LUFA/Bootloaders/DFU/DFU-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex
+[ -e CDC-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex ] || http://fourwalledcubicle.com/files/LUFA/Bootloaders/CDC/CDC-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex
+
 # Build blinks
 make -C ../003_m32u4/blink1 | tee build-m32u4-blink1.log
 cp ../003_m32u4/blink1/blink1.hex m32u4-blink1.hex

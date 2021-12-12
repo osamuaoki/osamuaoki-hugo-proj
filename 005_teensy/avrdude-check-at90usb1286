@@ -1,2 +1,28 @@
 #!/bin/sh -e
-sudo avrdude -v -p at90usb1286 -c avrisp2 -Pusb -F
+# vim:se sw=2 ts=2 sts=2 et ai:
+# check fuse
+# default ISP=avrisp2
+# alt ISP=ttl232r
+ISP="${1:-avrisp2}"
+sudo avrdude -v -p at90usb1286 -c "$ISP" -Pusb -F
+
+###ORIGINAL VALUES
+###avrdude: Device signature = 0x1e9782 (probably usb1287)
+###avrdude: safemode: lfuse reads as 4F
+###avrdude: safemode: hfuse reads as DD
+###avrdude: safemode: efuse reads as F5
+###
+###avrdude: safemode: lfuse reads as 4F
+###avrdude: safemode: hfuse reads as DD
+###avrdude: safemode: efuse reads as F5
+###avrdude: safemode: Fuses OK (E:F5, H:DD, L:4F)
+###
+###avrdude done.  Thank you.
+###
+### [20395.994646] usb 6-1.2: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+### [20396.040817] hid-generic 0003:16C0:0478.0038: hidraw3: USB HID v1.11 Device [HID 16c0:0478] on usb-0000:08:00.4-1.2/input0
+
+### CKDIV8 ON
+### BOOTSZ 1024 W = 2048 B
+### BODLEVEL 2.2V
+### これで動いていたんだよね。。。？

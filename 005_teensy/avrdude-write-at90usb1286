@@ -1,4 +1,5 @@
 #!/bin/sh -e
+# vim:se sw=2 ts=2 sts=2 et ai:
 #
 # To use this, please give HEX file name as the argument "$1"
 #
@@ -16,5 +17,33 @@
 #   BOD       2.4V         brown-out detection
 # See https://github.com/osamuaoki/avrdude-friend/wiki/AVR-fuse
 #     https://eleccelerator.com/fusecalc/fusecalc.php
-sudo avrdude -v -p at90usb1286 -c avrisp2 -Pusb -e -U flash:w:$1 \
+echo "Firmware update tool for TEENSY 2.0++ with the ISP connection"
+case "$1" in
+  "")
+    echo "You must provide a firmware HEX file name as the argument"
+    exit 1
+    ;;
+  BootloaderCDC.hex)
+    echo "Flashing with BootloaderCDC.hex LUFA (osamu's build)"
+    ;;
+  BootloaderDFU.hex)
+    echo "Flashing with BootloaderDFU.hex LUFA (osamu's build)"
+    ;;
+  BootloaderHID.hex)
+    echo "Flashing with BootloaderHID.hex LUFA (osamu's build -- LED)"
+    ;;
+  BootloaderHID_orig.hex)
+    echo "Flashing with BootloaderHID_orig.hex LUFA (osamu's build -- no LED)"
+    ;;
+  HID-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex)
+    echo "Flashing with LUFA upstream HID"
+    ;;
+  *)
+    echo "You need to press ^C now unless you are wiping out bootloader"
+    ;;
+esac
+# default ISP=avrisp2
+# alt ISP=ttl232r
+ISP="${2:-avrisp2}"
+sudo avrdude -v -p at90usb1286 -c "$ISP" -Pusb -e -U "flash:w:$1" \
      -U lfuse:w:0x5f:m -U hfuse:w:0xdf:m -U efuse:w:0xf4:m
