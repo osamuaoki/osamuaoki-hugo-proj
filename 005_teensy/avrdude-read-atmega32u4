@@ -1,0 +1,31 @@
+#!/bin/sh -e
+# vim:se sw=2 ts=2 sts=2 et ai:
+#
+# To use this, please give HEX file name as the argument "$1"
+#
+# This is intended for: ATmega32u4 on TEENSY 2.0 (compat.) board
+#
+# LOW FUSE:
+#   CKDIV8    enabled  (0) devide clock by 8 enabled
+#   SUT1      enabled  (0)
+# HIGH FUSE
+#  (BOOTRST)  disabled (1) boot reset vector
+#   SPIEN     enabled  (0) serial program
+#   BOOTSZ    512B        -- start @ 0xFE00
+# EXTENDED FUSE
+#   HWBE      enabled  (0) hardware boot
+#   BOD       2.4V         brown-out detection
+# See https://github.com/osamuaoki/avrdude-friend/wiki/AVR-fuse
+#     https://eleccelerator.com/fusecalc/fusecalc.php
+echo "Firmware dump tool for TEENSY 2.0 with the ISP connection"
+case "$1" in
+  "")
+    echo "You must provide a firmware dump file name as the argument"
+    exit 1
+    ;;
+esac
+# default ISP=avrisp2
+# alt ISP=ttl232r
+ISP="${2:-avrisp2}"
+sudo avrdude -v -p atmega32u4 -c "$ISP" -Pusb -e -U "flash:r:$1.hex:i" \
+     -U lfuse:r:$1.lfuse:i -U hfuse:r:$1.hfuse:i -U efuse:r:$1.efuse:i
