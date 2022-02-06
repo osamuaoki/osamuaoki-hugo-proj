@@ -8,16 +8,17 @@ chmod 755 hid_bootloader_cli
 [ -e hid_bootloader_loader.py ] || wget https://github.com/osamuaoki/lufa/raw/osamu/Bootloaders/HID/HostLoaderApp_Python/hid_bootloader_loader.py
 chmod 755 hid_bootloader_loader.py
 # Download required bootloader hex files
-[ -e nanoBoot.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/nanoBoot/led-hex/nanoBoot.hex
-[ -e BootloaderCDC.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/CDC-teensy2pp/BootloaderCDC.hex
+[ -e nanoBoot-teensy.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/nanoBoot/led-hex/nanoBoot-teensy.hex
+[ -e bootloader_at90usb128_1.0.1.hex ] || wget https://raw.githubusercontent.com/qmk/qmk_firmware/master/util/bootloader_at90usb128_1.0.1.hex
 # Download optional bootloader hex files
+[ -e nanoBoot-generic.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/nanoBoot/led-hex/nanoBoot-generic.hex
 [ -e BootloaderDFU.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/DFU-teensy2pp/BootloaderDFU.hex
 [ -e BootloaderHID.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/HID-teensy2pp/BootloaderHID.hex
 [ -e BootloaderHID_orig.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/HID-teensy2pp/BootloaderHID_orig.hex
-[ -e BootloaderHIDxxxx_orig.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/HID-teensy2pp/BootloaderHID_orig.hex
-[ -e HID-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex ] || http://fourwalledcubicle.com/files/LUFA/Bootloaders/HID/HID-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex
-[ -e DFU-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex ] || http://fourwalledcubicle.com/files/LUFA/Bootloaders/DFU/DFU-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex
-[ -e CDC-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex ] || http://fourwalledcubicle.com/files/LUFA/Bootloaders/CDC/CDC-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex
+[ -e BootloaderCDC.hex ] ||wget https://raw.githubusercontent.com/osamuaoki/lufa/osamu/Bootloaders/CDC-teensy2pp/BootloaderCDC.hex
+[ -e HID-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex ] || wget http://fourwalledcubicle.com/files/LUFA/Bootloaders/HID/HID-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex
+[ -e DFU-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex ] || wget http://fourwalledcubicle.com/files/LUFA/Bootloaders/DFU/DFU-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex
+[ -e CDC-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex ] || wget http://fourwalledcubicle.com/files/LUFA/Bootloaders/CDC/CDC-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex
 
 # Build blinks
 make -C ../003_m32u4/blink1 | tee build-m32u4-blink1.log
