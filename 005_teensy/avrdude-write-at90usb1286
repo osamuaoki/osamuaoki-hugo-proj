@@ -12,39 +12,95 @@
 #  (BOOTRST)  disabled (1) boot reset vector
 #   SPIEN     enabled  (0) serial program
 #   BOOTSZ    4KB (4096B) -- start @ 0xF800 W -> 0x1F000 B
-#   BOOTRST   Force to run bootloader    (Just in case ALE/HWE pin is not pull-downed)
+#   BOOTRST   Force to run bootloader if set (=0)  --> Always 1 for our case
 # EXTENDED FUSE
-#   HWBE      enabled  (0) hardware boot (Yah, but ...)
+#   HWBE      enabled  (0) reset to bootloader (PE2 grounded) (有効化 = 0)
 #   BOD       2.4V         brown-out detection
 # See https://github.com/osamuaoki/avrdude-friend/wiki/AVR-fuse
 #     https://eleccelerator.com/fusecalc/fusecalc.php
 echo "Firmware update tool for TEENSY 2.0++ with the ISP connection"
-case "$1" in
+LFUSE="5e" # 65 ms wait          -- 5f 1ms (16 K CK)
+HFUSE="9b" # 4 KB + jtag enabled -- db if JTAG is disabled  -- 99 if 8 KB/jtag_enabled 
+EFUSE="f3" # BOD 2.6V + HWBE     -- f4 BOD 3.4V + HWBE
+while true; do
+  case $1 in
+    -lufa) # LUFA HID (4 KB) -- my local compile for 4KB
+      #old -U lfuse:w:0x5f:m -U hfuse:w:0xda:m -U efuse:w:0xf4:m (recent LUFA default)
+      LFUSE="5e"  # now slow start
+      HFUSE="9b"  # 4 KB jtag enabled / da if jtag disabled
+      EFUSE="f3"  # BOD 2.4V
+      ;;
+    -dfu) # QMK DFU (8 KB)
+      # https://drop.com/talk/9635/how-to-flash-your-planck-light-keyboard-via-isp (PLANCK allows JTAG : 99)
+      # https://www.avrfreaks.net/forum/at90usb1286-usb-dfu-bootloader 5f d9 f3
+      # https://docs.qmk.fm/#/isp_flashing_guide (NO JTAG)
+      # I want JTAG but I will not likely use it.
+      LFUSE="5e"
+      HFUSE="99" # 8 KB
+      EFUSE="f3"
+      ;;
+    bootloader_at90usb128_1.0.1.hex)
+      # force 8KB always
+      # To avoid hitting this, use ./bootloader_at90usb128_1.0.1.hex
+      LFUSE="5e"
+      HFUSE="98" # 8 KB
+      EFUSE="f3"
+      break
+      ;;
+    -l*)
+      LFUSE="${1#-l}"
+      ;;
+    -h*)
+      HFUSE="${1#-h}"
+      ;;
+    -e*)
+      EFUSE="${1#-e}"
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *)
+      break
+      ;;
+  esac
+  shift
+done
+HEXFILE="$1"
+ISP="${2:-avrisp2}"
+# default ISP=avrisp2
+# alt ISP=ttl232r
+case "$HEXFILE" in
   "")
     echo "You must provide a firmware HEX file name as the argument"
     exit 1
     ;;
+  bootloader_at90usb128_1.0.1.hex)
+    echo "Flashing with bootloader_at90usb128_1.0.1.hex QMK (8KB) with $ISP"
+    ;;
   BootloaderCDC.hex)
-    echo "Flashing with BootloaderCDC.hex LUFA (osamu's build)"
+    echo "Flashing with BootloaderCDC.hex LUFA (osamu's build) with $ISP"
     ;;
   BootloaderDFU.hex)
-    echo "Flashing with BootloaderDFU.hex LUFA (osamu's build)"
+    echo "Flashing with BootloaderDFU.hex LUFA (osamu's build) with $ISP"
     ;;
   BootloaderHID.hex)
-    echo "Flashing with BootloaderHID.hex LUFA (osamu's build -- LED)"
+    echo "Flashing with BootloaderHID.hex LUFA (osamu's build -- LED) with $ISP"
     ;;
   BootloaderHID_orig.hex)
-    echo "Flashing with BootloaderHID_orig.hex LUFA (osamu's build -- no LED)"
+    echo "Flashing with BootloaderHID_orig.hex LUFA (osamu's build -- no LED) with $ISP"
     ;;
   HID-AVR8-at90usb1286-BOARD_NONE-BOOT_4KB-16MHz.hex)
-    echo "Flashing with LUFA upstream HID"
+    echo "Flashing with LUFA upstream HID with $ISP"
     ;;
   *)
+    echo "Flashing with !!! $HEXFILE !!! with $ISP"
     echo "You need to press ^C now unless you are wiping out bootloader"
     ;;
 esac
-# default ISP=avrisp2
-# alt ISP=ttl232r
-ISP="${2:-avrisp2}"
-sudo avrdude -v -p at90usb1286 -c "$ISP" -Pusb -e -U "flash:w:$1" \
-     -U lfuse:w:0x5f:m -U hfuse:w:0xda:m -U efuse:w:0xf4:m
+sudo avrdude -v -p at90usb1286 -c "${ISP}" -Pusb -e \
+      -U "flash:w:${HEXFILE}" \
+      -U lfuse:w:0x${LFUSE}:m \
+      -U hfuse:w:0x${HFUSE}:m \
+      -U efuse:w:0x${EFUSE}:m
+

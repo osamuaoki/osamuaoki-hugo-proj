@@ -1,0 +1,17 @@
+#!/bin/sh -e
+# vim:se sw=2 ts=2 sts=2 et ai:
+echo "Firmware update tool for TEENSY 2.0++ with DFU"
+if [ -z "$1" ]; then
+  echo "You must provide a firmware HEX file name as the argument"
+  exit 1
+fi
+echo "Plug your device to USB"
+echo "Press RESET button"
+echo "Check DFU device from \"journalctl -f\" prompt, type ENTER"
+read -r X
+: "$X" # fool shellcheck
+#sudo dfu-programmer at90usb1286  get REG
+#sudo dfu-programmer at90usb1286  configure REG VAL
+sudo dfu-programmer at90usb1286  erase
+sudo dfu-programmer at90usb1286  flash "$1"
+

@@ -1,6 +1,6 @@
 #!/bin/sh -e
 # vim:se sw=2 ts=2 sts=2 et ai:
-echo "Firmware update tool for TEENSY 2.0 with nanoBoot w/LED"
+echo "Firmware update tool for TEENSY 2.0++ with LUFA HID (w/LED)"
 if [ -z "$1" ]; then
   echo "You must provide a firmware HEX file name as the argument"
   exit 1
@@ -10,4 +10,4 @@ echo "Press RESET button (turns off LED for a short moment)"
 echo "When LED turns on, type ENTER"
 read -r X
 : "$X" # fool shellcheck
-sudo ./hid_bootloader_cli -mmcu=atmega32u4 -v "$1"
+sudo ./hid_bootloader_cli -mmcu=at90usb1286 -v "$1"
