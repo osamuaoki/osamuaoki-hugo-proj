@@ -12,38 +12,40 @@
 #  (BOOTRST)  disabled (1) boot reset vector
 #   SPIEN     enabled  (0) serial program
 #   BOOTSZ    4KB (4096B) -- start @ 0xF800 W -> 0x1F000 B
+#             If JTAG is enabled, some pins are not usable
 #   BOOTRST   Force to run bootloader if set (=0)  --> Always 1 for our case
 # EXTENDED FUSE
 #   HWBE      enabled  (0) reset to bootloader (PE2 grounded) (有効化 = 0)
 #   BOD       2.4V         brown-out detection
+#
 # See https://github.com/osamuaoki/avrdude-friend/wiki/AVR-fuse
 #     https://eleccelerator.com/fusecalc/fusecalc.php
 echo "Firmware update tool for TEENSY 2.0++ with the ISP connection"
 LFUSE="5e" # 65 ms wait          -- 5f 1ms (16 K CK)
-HFUSE="9b" # 4 KB + jtag enabled -- db if JTAG is disabled  -- 99 if 8 KB/jtag_enabled 
+HFUSE="db" # 4 KB + jtag disabled
 EFUSE="f3" # BOD 2.6V + HWBE     -- f4 BOD 3.4V + HWBE
 while true; do
   case $1 in
     -lufa) # LUFA HID (4 KB) -- my local compile for 4KB
       #old -U lfuse:w:0x5f:m -U hfuse:w:0xda:m -U efuse:w:0xf4:m (recent LUFA default)
       LFUSE="5e"  # now slow start
-      HFUSE="9b"  # 4 KB jtag enabled / da if jtag disabled
+      HFUSE="db"  # 4 KB jtag must be disabled
       EFUSE="f3"  # BOD 2.4V
       ;;
     -dfu) # QMK DFU (8 KB)
       # https://drop.com/talk/9635/how-to-flash-your-planck-light-keyboard-via-isp (PLANCK allows JTAG : 99)
       # https://www.avrfreaks.net/forum/at90usb1286-usb-dfu-bootloader 5f d9 f3
       # https://docs.qmk.fm/#/isp_flashing_guide (NO JTAG)
-      # I want JTAG but I will not likely use it.
+      # Unless you run JTAG, don't enable it ... loose IOPINS
       LFUSE="5e"
-      HFUSE="99" # 8 KB
+      HFUSE="d9" # 8 KB
       EFUSE="f3"
       ;;
     bootloader_at90usb128_1.0.1.hex)
       # force 8KB always
       # To avoid hitting this, use ./bootloader_at90usb128_1.0.1.hex
       LFUSE="5e"
-      HFUSE="98" # 8 KB
+      HFUSE="d9" # 8 KB
       EFUSE="f3"
       break
       ;;

@@ -9,5 +9,10 @@ For larger AT90USB1286, I use one of LUFA boot loaders (4K). (The first choice i
 
 The `./setup-teensy` will downloads binaries.
 
+avrmonを使う際は
+
+ $ picocom /dev/ttyACM
+
+
 Osamu
 
