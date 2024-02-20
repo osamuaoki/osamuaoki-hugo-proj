@@ -1,0 +1,25 @@
+---
+- name: Example for ansible.builtin.apt with many packages
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: true
+  vars:
+    package_name:
+      - screen
+      - sudo
+      - mc
+      - aptitude
+      - vim
+  tasks:
+    - name: Upgrade the whole system
+      ansible.builtin.apt:
+        upgrade: safe
+    - name: Install packages listed in package_name
+      ansible.builtin.apt:
+        name: "{{ package_name }}"
+        state: present
+    - name: Remove packages
+      ansible.builtin.apt:
+        name: ["nano"]
+        state: absent

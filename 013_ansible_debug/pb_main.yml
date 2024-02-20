@@ -1,0 +1,8 @@
+---
+- name: Example for ansible.builtin.apt with many packages
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: true
+  roles:
+    - base

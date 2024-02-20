@@ -1,0 +1,10 @@
+---
+- name: Allow passwordless for all %sudo
+  ansible.builtin.copy:
+    src: etc/sudoers.d/passwordless
+    dest: /etc/sudoers.d/passwordless
+    owner: root
+    group: root
+    mode: '0644'
+  tags:
+    - sudoers

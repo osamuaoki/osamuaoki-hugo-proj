@@ -1,0 +1,18 @@
+---
+# defaults file for roles/base
+# https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#understanding-variable-precedence
+#
+# prefix internal variables with underscore
+#   -- let -e to set external variables without underscore
+# ensure internal variables to be defined (and boolean for override)
+#
+_var1: "{{ var1 | default('1') }}"
+_var2: "{{ var2 | default('2') }}"
+
+#_varTF: True
+_varTF: "{{ _var1 == _var2 }}"
+
+_var1_override:  "{{ var1_override | default(false) | bool }}" 
+_var2_override:  "{{ var2_override | default(false) | bool }}" 
+
+

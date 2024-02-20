@@ -1,0 +1,49 @@
+---
+
+- name: Debug external variables with msg
+  ansible.builtin.debug:
+    msg: "var1_override = '{{ var1_override | default('***UNDEFIINED***') }}' var2_override = '{{ var2_override | default('***UNDEFIINED***') }}'"
+
+- name: Debug internal variables with msg
+  ansible.builtin.debug:
+    msg: "_var1 = '{{ _var1 }}' _var2 = '{{ _var2 }}' _var3 = '{{ _var3 }}' _varTF = '{{ _varTF }}' _var1_override = '{{ _var1_override }}' _var2_override = '{{ _var2_override }}'"
+
+- name: set var1 to "111" (if _var1_override is True)
+  ansible.builtin.set_fact:
+    _var1: "111"
+  when: _var1_override
+
+- name: Debug internal variables with msg
+  ansible.builtin.debug:
+    msg: "_var1 = '{{ _var1 }}' _var2 = '{{ _var2 }}' _var3 = '{{ _var3 }}' _varTF = '{{ _varTF }}' _var1_override = '{{ _var1_override }}' _var2_override = '{{ _var2_override }}'"
+
+- name: set var2 to "222" (if _var2_override is True)
+  ansible.builtin.set_fact:
+    _var2: "222"
+  when: _var2_override
+
+- name: Debug internal variables with msg
+  ansible.builtin.debug:
+    msg: "_var1 = '{{ _var1 }}' _var2 = '{{ _var2 }}' _var3 = '{{ _var3 }}' _varTF = '{{ _varTF }}' _var1_override = '{{ _var1_override }}' _var2_override = '{{ _var2_override }}'"
+
+- name: set _var3 (_var1+_var2)
+  ansible.builtin.set_fact:
+    _var3: "{{ _var1 + _var2 }}"
+
+- name: Debug internal variables with msg
+  ansible.builtin.debug:
+    msg: "_var1 = '{{ _var1 }}' _var2 = '{{ _var2 }}' _var3 = '{{ _var3 }}' _varTF = '{{ _varTF }}' _var1_override = '{{ _var1_override }}' _var2_override = '{{ _var2_override }}'"
+
+- name: set _var3 to "zzzzz" with var1 == var2
+  ansible.builtin.set_fact:
+    _var3: "zzzzz"
+  when: _varTF
+
+- name: Debug internal variables with msg
+  ansible.builtin.debug:
+    msg: "_var1 = '{{ _var1 }}' _var2 = '{{ _var2 }}' _var3 = '{{ _var3 }}' _varTF = '{{ _varTF }}' _var1_override = '{{ _var1_override }}' _var2_override = '{{ _var2_override }}'"
+
+- name: Debug result of _var1 == _var2
+  ansible.builtin.debug:
+    var: _var1 == _var2
+

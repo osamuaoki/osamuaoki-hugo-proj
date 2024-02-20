@@ -1,0 +1,8 @@
+---
+# defaults file for roles/base
+# https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#understanding-variable-precedence
+# don't let -e to set internal variables directly
+#
+_var0: "{{ var0 | default('0') }}"
+_var1: "{{ var1 | default('1') }}"
+_var2: "{{ var2 | default('2') }}"

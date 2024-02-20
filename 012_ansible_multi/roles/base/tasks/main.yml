@@ -1,0 +1,10 @@
+---
+# - import_tasks: apt_setup.yml
+
+- import_tasks: upgrade.yml
+- import_tasks: install.yml
+- import_tasks: remove.yml
+
+# - import_tasks: sudoers.yml
+
+- import_tasks: debug.yml

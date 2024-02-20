@@ -1,0 +1,38 @@
+---
+- name: Remove /etc/apt/sources.list
+  ansible.builtin.file:
+    path: /etc/apt/sources.list
+    state: absent
+
+- name: Set APT repository (debian)
+  ansible.builtin.deb822_repository:
+    name: debian
+    types:
+      - deb
+      - deb-src
+    uris: http://deb.debian.org/debian
+    suites:
+      - bookworm
+      - bookworm-updates
+      - bookworm-backports
+    components:
+      - main
+      - non-free-firmware
+      - contrib
+      - non-free
+
+- name: Set APT repository (debian-security)
+  ansible.builtin.deb822_repository:
+    name: debian-security
+    types:
+      - deb
+      - deb-src
+    uris: https://security.debian.org/debian-security/
+    suites:
+      - bookworm-security
+    components:
+      - main
+      - non-free-firmware
+      - contrib
+      - non-free
+

@@ -1,0 +1,6 @@
+---
+- name: Install packages listed in package_name
+  ansible.builtin.apt:
+    name: "{{ package_name_install }}"
+    state: present
+  tags: install

@@ -1,0 +1,6 @@
+---
+all:
+  children:
+    groupname1:
+      hosts:
+        localhost:

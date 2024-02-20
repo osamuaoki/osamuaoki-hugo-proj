@@ -1,0 +1,13 @@
+---
+# vars file
+
+package_name_install:
+  - screen
+  - sudo
+  - mc
+  - aptitude
+  - vim
+
+package_name_remove:
+  - nano
+

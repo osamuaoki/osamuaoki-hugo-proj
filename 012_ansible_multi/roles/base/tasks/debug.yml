@@ -1,0 +1,44 @@
+---
+
+- name: set var1 to "111" (default was 1)
+  ansible.builtin.set_fact:
+    _var1: "111"
+  tags: debug
+
+- name: set _var1
+  ansible.builtin.set_fact:
+    _var1: "11111"
+  tags: tag1
+
+- name: set _var2
+  ansible.builtin.set_fact:
+    _var2: "22222"
+  tags: tag2
+
+- name: set _var3 (_var0+_var1+_var2)
+  ansible.builtin.set_fact:
+    _var3: "{{ _var0 + _var1 + _var2 }}"
+  tags: debug
+
+- name: set _var3 to "00000" with tag3
+  ansible.builtin.set_fact:
+    _var3: "00000"
+  tags: tag3
+
+- name: set _var3 to "zzzzz" with var0 == 00
+  ansible.builtin.set_fact:
+    _var3: "zzzzz"
+  when: _var0 == '00'
+  tags: debug
+
+- name: Debug internal variables with msg
+  ansible.builtin.debug:
+    msg: "_var0 = '{{ _var0 }}', _var1 = '{{ _var1 }}', _var2 = '{{ _var2 }}', _var3 = '{{ _var3 }}'"
+  tags: debug
+
+- name: Debug resulting variables with var
+  ansible.builtin.debug:
+    var: _var3
+  when: "xxx" == "xxx"
+  tags: debug
+

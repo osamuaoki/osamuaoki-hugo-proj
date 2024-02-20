@@ -1,0 +1,5 @@
+---
+- name: Upgrade the whole system
+  ansible.builtin.apt:
+    upgrade: safe
+  tags: upgrade

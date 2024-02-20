@@ -1,0 +1,11 @@
+---
+- name: Example for ansible.builtin.apt with screen
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Install "screen" package
+      ansible.builtin.apt:
+        name: screen
+        state: present
