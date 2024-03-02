@@ -1,0 +1,8 @@
+---
+# defaults file for roles/base
+# https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#understanding-variable-precedence
+#
+# prefix internal variables with underscore
+#   -- let -e to set external variables without underscore
+# ensure internal variables to be defined (and boolean for override)
+#

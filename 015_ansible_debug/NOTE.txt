@@ -1,0 +1,32 @@
+
+
+
+Ansible set_fact doesn't change the variable value
+https://stackoverflow.com/questions/27038553/ansible-set-fact-doesnt-change-the-variable-value
+
+
+The set_fact module effectively adds another host fact, ie. "a fact discovered
+about the system". From the documentation
+(http://docs.ansible.com/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)
+you can see that those facts have low priority, and will be overridden by
+extra-vars and various other things.
+
+This can be confusing because using set_fact can make it seem like you are
+changing the value of the variable at that point, but maybe the name is the key
+to understanding - it's not 'set_variable', it's 'set_(host)fact', and host
+facts have low precedence. Precedence is more important than the order in which
+the value is assigned.
+
+One workaround if you want to supply a value via extra-vars that gets
+overwritten later would be to reassign that extra-vars value to a different
+variable via set_fact at the start of your playbook, and then reassign that new
+variable later using set_fact again. Since they're at the same precedence
+level, the 'overwrite' should work as you would expect.
+
+
+https://serverfault.com/questions/1089068/how-to-override-ansible-playbook-variable
+
+
+{{ my_variable|default('my_variable is not defined') }}
+
+

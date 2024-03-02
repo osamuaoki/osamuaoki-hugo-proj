@@ -1,0 +1,107 @@
+---
+
+- name: create boo-shell-cmd
+  ansible.builtin.shell:
+    cmd: |
+        cat >boo-shell-cmd << EOF
+        ccccc cccc
+         xxxxxxxxxxxxxxxxxxxx
+          YYYYYYYYYYYYYYYYYYY
+           ZZZZZZZZZZZZZZZZZZ
+            AAAAAAAAAAAAAAAAA
+
+           bar baz
+        zzzzz zzzzz
+        ccccc cccc
+         xxxxxxxxxxxxxxxxxxxx
+          YYYYYYYYYYYYYYYYYYY
+           ZZZZZZZZZZZZZZZZZZ
+            AAAAAAAAAAAAAAAAA
+        ss
+        sss
+        EOF
+
+- name: create boo-shell-freeform
+  ansible.builtin.shell: |
+        cat >boo-shell-freeform << EOF
+        ccccc cccc
+         xxxxxxxxxxxxxxxxxxxx
+          YYYYYYYYYYYYYYYYYYY
+           ZZZZZZZZZZZZZZZZZZ
+            AAAAAAAAAAAAAAAAA
+
+           bar baz
+        zzzzz zzzzz
+        ccccc cccc
+         xxxxxxxxxxxxxxxxxxxx
+          YYYYYYYYYYYYYYYYYYY
+           ZZZZZZZZZZZZZZZZZZ
+            AAAAAAAAAAAAAAAAA
+        ss
+        sss
+        EOF
+
+
+- name: create boo-script-freeform
+  ansible.builtin.script: |
+        /usr/bin/cat >boo-script-freeform << EOF
+        ccccc cccc
+         xxxxxxxxxxxxxxxxxxxx
+          YYYYYYYYYYYYYYYYYYY
+           ZZZZZZZZZZZZZZZZZZ
+
+           bar baz
+        zzzzz zzzzz
+        ss
+        sss
+        EOF
+
+- name: create boo-script-cmd
+  ansible.builtin.script:
+    cmd: |
+        /usr/bin/cat >boo-script-cmd << EOF
+        ccccc cccc
+         xxxxxxxxxxxxxxxxxxxx
+          YYYYYYYYYYYYYYYYYYY
+           ZZZZZZZZZZZZZZZZZZ
+
+           bar baz
+        zzzzz zzzzz
+        ss
+        sss
+        EOF
+
+        #/usr/bin/cat >boo-raw-freeform << EOF
+- name: create boo-raw-freeform
+  ansible.builtin.raw: |
+        cat >boo-raw-freeform << EOF
+        ccccc cccc
+         xxxxxxxxxxxxxxxxxxxx
+          YYYYYYYYYYYYYYYYYYY
+           ZZZZZZZZZZZZZZZZZZ
+           bar baz
+        zzzzz zzzzz
+        ss
+        sss
+        EOF
+
+- name: create boo-raw-freeform-exp
+  ansible.builtin.raw: |
+    free_form: |
+      cat >boo-raw-freeform-exp << EOF
+      ccccc cccc
+       xxxxxxxxxxxxxxxxxxxx
+        YYYYYYYYYYYYYYYYYYY
+         ZZZZZZZZZZZZZZZZZZ
+         bar baz
+      zzzzz zzzzz
+      ss
+      sss
+      EOF
+
+#   ansible.builtin.command:
+#     args:
+#       - cat
+#       - ...
+#   No easy way to write
+

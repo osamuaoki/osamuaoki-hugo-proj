@@ -1,0 +1,8 @@
+---
+- name: Example for ansible.builtin.{debug,set_fact} for YAML
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: true
+  roles:
+    - base
