@@ -1,0 +1,29 @@
+---
+
+
+- name: set var1 with BAR
+  ansible.builtin.set_fact:
+    _var1: |
+        foo tailing white space    
+         bar baz
+        zzzzz zzzzz
+        ss
+        sss
+
+- name: set var2 with GT
+  ansible.builtin.set_fact:
+    _var2: >
+        foo tailing white space    
+        bar baz
+        zzzzz zzzzz
+        ss
+        sss
+
+- name: Debug result of _var1
+  ansible.builtin.debug:
+    var: _var1
+
+- name: Debug result of _var2
+  ansible.builtin.debug:
+    var: _var2
+
