@@ -7,6 +7,7 @@
         foo tailing white space    
          bar baz
         zzzzz zzzzz
+
         ss
         sss
 
@@ -16,6 +17,30 @@
         foo tailing white space    
         bar baz
         zzzzz zzzzz
+
+        ss
+        sss
+
+- name: set var3 with BAR PLUS
+  ansible.builtin.set_fact:
+    _var3: |+
+        foo tailing white space    
+         bar baz
+        zzzzz zzzzz
+
+        ss
+        sss
+
+
+
+
+- name: set var4 with BAR MINUS
+  ansible.builtin.set_fact:
+    _var4: |-
+        foo tailing white space    
+         bar baz
+        zzzzz zzzzz
+
         ss
         sss
 
@@ -26,4 +51,12 @@
 - name: Debug result of _var2
   ansible.builtin.debug:
     var: _var2
+
+- name: Debug result of _var3
+  ansible.builtin.debug:
+    var: _var3
+
+- name: Debug result of _var4
+  ansible.builtin.debug:
+    var: _var4
 
