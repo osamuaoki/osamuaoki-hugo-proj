@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<gnc-v2
+     xmlns:gnc="http://www.gnucash.org/XML/gnc"
+     xmlns:act="http://www.gnucash.org/XML/act"
+     xmlns:book="http://www.gnucash.org/XML/book"
+     xmlns:cd="http://www.gnucash.org/XML/cd"
+     xmlns:cmdty="http://www.gnucash.org/XML/cmdty"
+     xmlns:price="http://www.gnucash.org/XML/price"
+     xmlns:slot="http://www.gnucash.org/XML/slot"
+     xmlns:split="http://www.gnucash.org/XML/split"
+     xmlns:sx="http://www.gnucash.org/XML/sx"
+     xmlns:trn="http://www.gnucash.org/XML/trn"
+     xmlns:ts="http://www.gnucash.org/XML/ts"
+     xmlns:fs="http://www.gnucash.org/XML/fs"
+     xmlns:bgt="http://www.gnucash.org/XML/bgt"
+     xmlns:recurrence="http://www.gnucash.org/XML/recurrence"
+     xmlns:lot="http://www.gnucash.org/XML/lot"
+     xmlns:addr="http://www.gnucash.org/XML/addr"
+     xmlns:billterm="http://www.gnucash.org/XML/billterm"
+     xmlns:bt-days="http://www.gnucash.org/XML/bt-days"
+     xmlns:bt-prox="http://www.gnucash.org/XML/bt-prox"
+     xmlns:cust="http://www.gnucash.org/XML/cust"
+     xmlns:employee="http://www.gnucash.org/XML/employee"
+     xmlns:entry="http://www.gnucash.org/XML/entry"
+     xmlns:invoice="http://www.gnucash.org/XML/invoice"
+     xmlns:job="http://www.gnucash.org/XML/job"
+     xmlns:order="http://www.gnucash.org/XML/order"
+     xmlns:owner="http://www.gnucash.org/XML/owner"
+     xmlns:taxtable="http://www.gnucash.org/XML/taxtable"
+     xmlns:tte="http://www.gnucash.org/XML/tte"
+     xmlns:vendor="http://www.gnucash.org/XML/vendor">
+<gnc:count-data cd:type="commodity">1</gnc:count-data>
+<gnc:count-data cd:type="account">25</gnc:count-data>
+<gnc:commodity version="2.0.0">
+  <cmdty:space>CURRENCY</cmdty:space>
+  <cmdty:id>JPY</cmdty:id>
+  <cmdty:get_quotes/>
+  <cmdty:quote_source>currency</cmdty:quote_source>
+  <cmdty:quote_tz/>
+</gnc:commodity>
+<gnc:commodity version="2.0.0">
+  <cmdty:space>CURRENCY</cmdty:space>
+  <cmdty:id>USD</cmdty:id>
+  <cmdty:get_quotes/>
+  <cmdty:quote_source>currency</cmdty:quote_source>
+  <cmdty:quote_tz/>
+</gnc:commodity>
+<gnc:commodity version="2.0.0">
+  <cmdty:space>template</cmdty:space>
+  <cmdty:id>template</cmdty:id>
+  <cmdty:name>template</cmdty:name>
+  <cmdty:xcode>template</cmdty:xcode>
+  <cmdty:fraction>1</cmdty:fraction>
+</gnc:commodity>
+<gnc:account version="2.0.0">
+  <act:name>Root Account</act:name>
+  <act:id type="guid">34579bfa4f7a4b889e6a7869567dca35</act:id>
+  <act:type>ROOT</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>資産</act:name>
+  <act:id type="guid">99f271dba2164f0ea3a4138e58f40adc</act:id>
+  <act:type>ASSET</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>資産</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(153,193,241)</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">34579bfa4f7a4b889e6a7869567dca35</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>流動資産</act:name>
+  <act:id type="guid">09c3cf304a084d1892244c5d0d9eaaac</act:id>
+  <act:type>ASSET</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>流動資産</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(153,193,241)</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">99f271dba2164f0ea3a4138e58f40adc</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>事業現金 JPY</act:name>
+  <act:id type="guid">767be438a8d146688fbc3cf1a8da63d0</act:id>
+  <act:type>BANK</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>事業現金 JPY</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(153,193,241)</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">09c3cf304a084d1892244c5d0d9eaaac</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>事業現金 USD</act:name>
+  <act:id type="guid">b4e0ca3c7e7d4fde9eaf50fe3ac54b8f</act:id>
+  <act:type>ASSET</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>事業現金 USD</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(153,193,241)</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">09c3cf304a084d1892244c5d0d9eaaac</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>売掛金</act:name>
+  <act:id type="guid">3f4021c27c6b444a9a627ceae4ed7541</act:id>
+  <act:type>ASSET</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>売掛金</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(153,193,241)</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">99f271dba2164f0ea3a4138e58f40adc</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>売掛金 USD</act:name>
+  <act:id type="guid">0270af0ac8da4b8d8ed56f0d372b3051</act:id>
+  <act:type>ASSET</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>売掛金 USD</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(153,193,241)</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">3f4021c27c6b444a9a627ceae4ed7541</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>立替金</act:name>
+  <act:id type="guid">33f3972b0af74eb79a9840168bb7cee2</act:id>
+  <act:type>ASSET</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>立替金</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(153,193,241)</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">99f271dba2164f0ea3a4138e58f40adc</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>立替金 JPY</act:name>
+  <act:id type="guid">d9596a19d71649f49ec7ffc6f06b5d41</act:id>
+  <act:type>RECEIVABLE</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>立替金 JPY</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(153,193,241)</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">33f3972b0af74eb79a9840168bb7cee2</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>負債</act:name>
+  <act:id type="guid">4414efe1c87244fc991cb2e2a3e4978d</act:id>
+  <act:type>LIABILITY</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>負債</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(205,171,143)</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">34579bfa4f7a4b889e6a7869567dca35</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>事業主借</act:name>
+  <act:id type="guid">c5e28594a161453082e6ec9cd96fe837</act:id>
+  <act:type>LIABILITY</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>事業主借</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(205,171,143)</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">4414efe1c87244fc991cb2e2a3e4978d</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>事業主借 JPY</act:name>
+  <act:id type="guid">a40f50ed8e5f4610b206999bf008142b</act:id>
+  <act:type>LIABILITY</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>事業主借(無利子無担保) JPY</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(205,171,143)</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">c5e28594a161453082e6ec9cd96fe837</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>事業主借 USD</act:name>
+  <act:id type="guid">1363649bcb1e44eba4d87549e88ae48b</act:id>
+  <act:type>LIABILITY</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>事業主借(無利子無担保) USD</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(205,171,143)</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">c5e28594a161453082e6ec9cd96fe837</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>収益</act:name>
+  <act:id type="guid">5f05ba311e1443cf90447272c6245d94</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>収益</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(143,240,164)</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">34579bfa4f7a4b889e6a7869567dca35</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>その他の収入</act:name>
+  <act:id type="guid">3c98d3f0b95744d7a079c648419dc240</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>その他の収入</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(143,240,164)</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">5f05ba311e1443cf90447272c6245d94</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>売上高</act:name>
+  <act:id type="guid">9c9867df0f3f4cbc87b1ca1e94d3b86a</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>売上高</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(143,240,164)</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">5f05ba311e1443cf90447272c6245d94</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>売上高 USD</act:name>
+  <act:id type="guid">280d1f91a43249f99c9776b85c449629</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>売上高 USD</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(143,240,164)</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">9c9867df0f3f4cbc87b1ca1e94d3b86a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>費用</act:name>
+  <act:id type="guid">bbf82ac429ce403ba4dc49f8d4f46541</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>費用</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(220,138,221)</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">34579bfa4f7a4b889e6a7869567dca35</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>諸費用</act:name>
+  <act:id type="guid">f81981f28b74499ab1d1b58cb4e4952c</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>諸費用</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(220,138,221)</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">bbf82ac429ce403ba4dc49f8d4f46541</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>送金費用</act:name>
+  <act:id type="guid">e59beb60cb6d4a6183b43b23dbc794eb</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>送金費用</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(220,138,221)</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">bbf82ac429ce403ba4dc49f8d4f46541</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>送金費用 USD</act:name>
+  <act:id type="guid">417e8a6a4ed943208df564992f2d76ae</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>送金費用 USD</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(220,138,221)</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">e59beb60cb6d4a6183b43b23dbc794eb</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>為替差損 JPY</act:name>
+  <act:id type="guid">82db3a4a04974fd3b834244488eafe1a</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>為替差損 JPY</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(220,138,221)</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">e59beb60cb6d4a6183b43b23dbc794eb</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>純資産</act:name>
+  <act:id type="guid">0c23bd40e8f74087b19d270e1a2a9ee8</act:id>
+  <act:type>EQUITY</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>純資産</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(255,190,111)</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">34579bfa4f7a4b889e6a7869567dca35</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>開始残高</act:name>
+  <act:id type="guid">b4c90439ec7b45c0b9426b00cc3b5e22</act:id>
+  <act:type>EQUITY</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:description>開始残高</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">rgb(255,190,111)</slot:value>
+    </slot>
+    <slot>
+      <slot:key>equity-type</slot:key>
+      <slot:value type="string">opening-balance</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">0c23bd40e8f74087b19d270e1a2a9ee8</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>貸借不一致-USD</act:name>
+  <act:id type="guid">9dd22510d33a4d96b99c1fec68e61520</act:id>
+  <act:type>BANK</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:parent type="guid">34579bfa4f7a4b889e6a7869567dca35</act:parent>
+</gnc:account>
+</gnc-v2>
+

@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<gnc-v2
+     xmlns:gnc="http://www.gnucash.org/XML/gnc"
+     xmlns:act="http://www.gnucash.org/XML/act"
+     xmlns:book="http://www.gnucash.org/XML/book"
+     xmlns:cd="http://www.gnucash.org/XML/cd"
+     xmlns:cmdty="http://www.gnucash.org/XML/cmdty"
+     xmlns:price="http://www.gnucash.org/XML/price"
+     xmlns:slot="http://www.gnucash.org/XML/slot"
+     xmlns:split="http://www.gnucash.org/XML/split"
+     xmlns:sx="http://www.gnucash.org/XML/sx"
+     xmlns:trn="http://www.gnucash.org/XML/trn"
+     xmlns:ts="http://www.gnucash.org/XML/ts"
+     xmlns:fs="http://www.gnucash.org/XML/fs"
+     xmlns:bgt="http://www.gnucash.org/XML/bgt"
+     xmlns:recurrence="http://www.gnucash.org/XML/recurrence"
+     xmlns:lot="http://www.gnucash.org/XML/lot"
+     xmlns:addr="http://www.gnucash.org/XML/addr"
+     xmlns:owner="http://www.gnucash.org/XML/owner"
+     xmlns:billterm="http://www.gnucash.org/XML/billterm"
+     xmlns:bt-days="http://www.gnucash.org/XML/bt-days"
+     xmlns:bt-prox="http://www.gnucash.org/XML/bt-prox"
+     xmlns:cust="http://www.gnucash.org/XML/cust"
+     xmlns:employee="http://www.gnucash.org/XML/employee"
+     xmlns:entry="http://www.gnucash.org/XML/entry"
+     xmlns:invoice="http://www.gnucash.org/XML/invoice"
+     xmlns:job="http://www.gnucash.org/XML/job"
+     xmlns:order="http://www.gnucash.org/XML/order"
+     xmlns:taxtable="http://www.gnucash.org/XML/taxtable"
+     xmlns:tte="http://www.gnucash.org/XML/tte"
+     xmlns:vendor="http://www.gnucash.org/XML/vendor">
+<gnc:count-data cd:type="commodity">1</gnc:count-data>
+<gnc:count-data cd:type="account">28</gnc:count-data>
+<gnc:commodity version="2.0.0">
+  <cmdty:space>ISO4217</cmdty:space>
+  <cmdty:id>JPY</cmdty:id>
+  <cmdty:get_quotes/>
+  <cmdty:quote_source>currency</cmdty:quote_source>
+  <cmdty:quote_tz/>
+</gnc:commodity>
+<gnc:commodity version="2.0.0">
+  <cmdty:space>template</cmdty:space>
+  <cmdty:id>template</cmdty:id>
+  <cmdty:name>template</cmdty:name>
+  <cmdty:xcode>template</cmdty:xcode>
+  <cmdty:fraction>1</cmdty:fraction>
+</gnc:commodity>
+<gnc:account version="2.0.0">
+  <act:name>Root Account</act:name>
+  <act:id type="guid">6d38f931c3be5a1e9a9f4e2f0dca8ec6</act:id>
+  <act:type>ROOT</act:type>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>資産</act:name>
+  <act:id type="guid">dad35634c0c4f0e3580514b814c80423</act:id>
+  <act:type>ASSET</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">6d38f931c3be5a1e9a9f4e2f0dca8ec6</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>現金</act:name>
+  <act:id type="guid">8260be3a7593a802ae8c0da2c02ee434</act:id>
+  <act:type>CASH</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">dad35634c0c4f0e3580514b814c80423</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>普通預金</act:name>
+  <act:id type="guid">96949f6300fa95cd000cb2bc53c247a4</act:id>
+  <act:type>BANK</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">dad35634c0c4f0e3580514b814c80423</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>売掛金</act:name>
+  <act:id type="guid">fa737799bd255c7cbe65df139e014694</act:id>
+  <act:type>RECEIVABLE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">dad35634c0c4f0e3580514b814c80423</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>工具器具備品</act:name>
+  <act:id type="guid">89510bec436f11bab4a1b74868b26750</act:id>
+  <act:type>ASSET</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">dad35634c0c4f0e3580514b814c80423</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>事業主貸</act:name>
+  <act:id type="guid">1128ad763b5efa3cd4524c47d7120775</act:id>
+  <act:type>ASSET</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">dad35634c0c4f0e3580514b814c80423</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>負債</act:name>
+  <act:id type="guid">9cdd0d389bceaaf1a2d760e8aff5b133</act:id>
+  <act:type>LIABILITY</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">6d38f931c3be5a1e9a9f4e2f0dca8ec6</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>未払金</act:name>
+  <act:id type="guid">5588c22adc08cf018fada2b58f3bae89</act:id>
+  <act:type>LIABILITY</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">9cdd0d389bceaaf1a2d760e8aff5b133</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>事業主借</act:name>
+  <act:id type="guid">a643a6acfeb1b9c9fdecbef4f00984df</act:id>
+  <act:type>LIABILITY</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">9cdd0d389bceaaf1a2d760e8aff5b133</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>純資産</act:name>
+  <act:id type="guid">c260bf11069521f5384049da7979917b</act:id>
+  <act:type>EQUITY</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">6d38f931c3be5a1e9a9f4e2f0dca8ec6</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>元入金</act:name>
+  <act:id type="guid">afc2ceb2bebe78a7f8a4a05c43958b2b</act:id>
+  <act:type>EQUITY</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">c260bf11069521f5384049da7979917b</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>収益</act:name>
+  <act:id type="guid">fe04ae865dac60b9f591c4b794f51334</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">6d38f931c3be5a1e9a9f4e2f0dca8ec6</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>売上</act:name>
+  <act:id type="guid">53624104f0c8f33cfa3692c437b040bd</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">fe04ae865dac60b9f591c4b794f51334</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>費用</act:name>
+  <act:id type="guid">65069103b8201a670f194e863d578b1a</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">6d38f931c3be5a1e9a9f4e2f0dca8ec6</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>租税公課</act:name>
+  <act:id type="guid">119ccda309173e57742ee9c676c61228</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>水道光熱費</act:name>
+  <act:id type="guid">e0fd56e282cc83ccf3adae1aabfbbe76</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>旅費交通費</act:name>
+  <act:id type="guid">52fe0f01abf908a126b052c6c5aa7d2c</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>通信費</act:name>
+  <act:id type="guid">b3ac65df30ff618cb174e0e184763565</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>接待交際費</act:name>
+  <act:id type="guid">c11bd421873460688c937e7c4bd6a980</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>消耗品費</act:name>
+  <act:id type="guid">da0c6033b86450a377ef90c80451734f</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>減価償却費</act:name>
+  <act:id type="guid">6cf1eaeb4180186190c1bfdfb474482d</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>地代家賃</act:name>
+  <act:id type="guid">c00c9ec364a3cf35d64d8f9409814596</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>新聞図書費</act:name>
+  <act:id type="guid">cf147ff5b499f8cede8fd95b7388f922</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>研修費</act:name>
+  <act:id type="guid">7013ce6e7a9d756e6ef9312057d33a24</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>会議費</act:name>
+  <act:id type="guid">6c198ad31b698e86163ef9d2694b7bd6</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>支払手数料</act:name>
+  <act:id type="guid">aa6def1c48274351cf33bee54f32d28b</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>雑費</act:name>
+  <act:id type="guid">aefbcb3a08789a6b6673928e46234a44</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>JPY</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>1</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>color</slot:key>
+      <slot:value type="string">Not Set</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">65069103b8201a670f194e863d578b1a</act:parent>
+</gnc:account>
+</gnc-v2>
+
+<!-- Local variables: -->
+<!-- mode: xml        -->
+<!-- End:             -->
