@@ -1,0 +1,156 @@
+#!/usr/bin/python3
+# vim:se tw=0 sts=4 ts=4 et ai:
+"""
+Copyright © 2024 Osamu Aoki
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+USA
+"""
+# For main
+import argparse
+import csv
+import locale
+
+# For sub-commands
+import os
+import os.path
+import sys
+
+#######################################################################
+# Global variables
+#######################################################################
+verbose = 0  # quiet
+# verbose = 1: default
+# verbose = 2: verbose
+# verbose = 3: debug
+def atodate(a):
+    return a[:4]+"-"+('0'+a[5:][:-1])[-2:]
+
+#######################################################################
+# main: parse command line parser
+#######################################################################
+def main():
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description="""\
+日本の確定申告作成用のデーター処理フィルター
+
+医療費のリストはマイナポータール経由でダウンロードできるのは良いのですが
+なんとも使い勝手がよろしくありません。以下のいずれかがが繰り返します。
+
+
+ヘッダー終わり  "医療費情報明細"
+
+* 診療年月
+  診療区分
+* 日数
+* 医療機関等名称
+  医療費の総額（円）
+  保険者の負担額（円）
+* その他の公費の負担額（円）
+* 窓口相当負担額（円）
+
+* 診療年月
+  診療区分
+* 日数
+* 医療機関等名称
+  医療費の総額（円）
+  保険者の負担額（円）
+* その他の公費の負担額（円）
+* 窓口相当負担額（円）
+  （食事療養費）診療年月
+  （食事療養費）診療区分
+  （食事療養費）回数
+  （食事療養費）医療機関等名称
+  （食事療養費）医療費の総額（円）
+  （食事療養費）保険者の負担額（円）
+  （食事療養費）その他の公費の負担額（円）
+  （食事療養費）窓口相当負担額（円）
+
+テイル始め　"保険者情報"
+
+表にする際、「*」を抜き出して表にする。
+
+「医療費情報」はあくまで健康保険関連だけなので、個別報告を別途作成し、保険
+外の医療費や交通費を加算等をするためのデーター処理用です。"
+
+copyright 2024 Osamu Aoki <osamu@debian.org>
+license: GPL 2.0+
+
+""",
+    )
+    parser.add_argument("-v", "--verbose", action="count", default=1, help="饒舌モード")
+    parser.add_argument("cvs", help="マイナポータール経由でダウンロードのCVS")
+    parser.set_defaults(func=help, parser=parser)
+    #######################################################################
+    # generate argument parser instance
+    #######################################################################
+    args = parser.parse_args()
+    verbose = args.verbose
+    #######################################################################
+    # Update variables with sanitization
+    #######################################################################
+    row_name = [
+        "診療年月",
+        "診療区分",
+        "日数",
+        "医療機関等名称",
+        "医療費の総額（円）",
+        "保険者の負担額（円）",
+        "その他の公費の負担額（円）",
+        "窓口相当負担額（円）",
+    ]
+    row_val = ["", "", "", "", 0, 0, 0, 0]
+    with open(args.cvs + ".out.cvs", 'w', newline='') as csvout:
+        datawriter = csv.writer(csvout, quoting=csv.QUOTE_NONNUMERIC)
+        datawriter.writerow(row_name)
+        with open(args.cvs, "r", newline="") as csvin:
+            datareader = csv.reader(csvin)
+            i = -200  # Not_Yet
+            for row in datareader:
+                if len(row) == 1 and row[0] == "医療費情報明細":
+                    i = -1  # Start
+                if len(row) == 1 and row[0] == "保険者情報":
+                    i = -200  # No_More
+                if len(row) == 2 and i >= -1:
+                    if row[0] == row_name[0]:
+                        i += 1
+                        row_val[0] = atodate(row[1])
+                    elif row[0] == row_name[1]:
+                        row_val[1] = row[1]
+                    elif row[0] == row_name[2]:
+                        row_val[2] = locale.atoi(row[1])
+                    elif row[0] == row_name[3]:
+                        row_val[3] = row[1]
+                    elif row[0] == row_name[4]:
+                        row_val[4] = locale.atoi(row[1])
+                    elif row[0] == row_name[5]:
+                        row_val[5] = locale.atoi(row[1])
+                    elif row[0] == row_name[6]:
+                        row_val[6] = locale.atoi(row[1])
+                    elif row[0] == row_name[7]:
+                        row_val[7] = locale.atoi(row[1])
+                        datawriter.writerow(row_val)
+                    else:
+                        pass
+    return
+
+
+#######################################################################
+# Test code
+#######################################################################
+if __name__ == "__main__":
+    main()
