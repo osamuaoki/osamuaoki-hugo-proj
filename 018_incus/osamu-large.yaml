@@ -1,0 +1,14 @@
+description: Osamu's large Incus profile
+config:
+  user.user-data: |-
+    #cloud-config
+    users:
+    - name: osamu
+      groups: adm, mail
+      sudo: ALL=(ALL) NOPASSWD:ALL
+devices:
+  root:
+    path: /
+    pool: default
+    size: 40GiB
+    type: disk

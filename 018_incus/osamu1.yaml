@@ -1,0 +1,7 @@
+description: Osamu's default Incus profile 1
+config:
+  cloud-init.user-data: |-
+    #cloud-config
+    users:
+    - name: osamu
+      groups: adm, mail
