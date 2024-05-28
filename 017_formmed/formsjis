@@ -1,0 +1,89 @@
+#!/usr/bin/python3
+# vim:se tw=0 sts=4 ts=4 et ai:
+"""
+Copyright © 2024 Osamu Aoki
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+USA
+"""
+# For main
+import argparse
+import csv
+import locale
+
+# For sub-commands
+import os
+import os.path
+import sys
+
+#######################################################################
+# Global variables
+#######################################################################
+verbose = 0  # quiet
+# verbose = 1: default
+# verbose = 2: verbose
+# verbose = 3: debug
+
+
+#######################################################################
+# main: parse command line parser
+#######################################################################
+def main():
+    locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description="""\
+SJISデーター処理フィルター
+
+日本の金融機関から取引をCVSダウンロードできるのは良いのですが、SJISで
+エンコードされており使い勝手がよろしくありません。
+
+本フィルターは、ある意味より複雑な処理をするフィルターの骨組みで、
+エンコーディングをSJISからUTF-8にのみし内容は変更しません。
+
+カラム数をSTDOUTに出力します。
+
+copyright 2024 Osamu Aoki <osamu@debian.org>
+license: GPL 2.0+
+
+""",
+    )
+    parser.add_argument("-v", "--verbose", action="count", default=1, help="饒舌モード")
+    parser.add_argument("cvs", help="ダウンロードされたCVSファイル名")
+    parser.set_defaults(func=help, parser=parser)
+    #######################################################################
+    # generate argument parser instance
+    #######################################################################
+    args = parser.parse_args()
+    verbose = args.verbose
+    #######################################################################
+    # Update variables with sanitization
+    #######################################################################
+    with open(os.path.splitext(args.cvs)[0] + ".utf8.cvs", "w", newline="") as csvout:
+        datawriter = csv.writer(csvout, dialect="excel")
+        with open(args.cvs, "r", newline="", encoding="SJIS") as csvin:
+            datareader = csv.reader(csvin, dialect="excel")
+            for row in datareader:
+                col = len(row)
+                print(col)
+                datawriter.writerow(row)
+    return
+
+
+#######################################################################
+# Test code
+#######################################################################
+if __name__ == "__main__":
+    main()
