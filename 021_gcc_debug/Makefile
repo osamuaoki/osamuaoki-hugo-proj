@@ -1,4 +1,4 @@
-PROG = test
+PROG = test hello
 
 all: $(PROG)
 
