@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# vim:se tw=0 sts=4 ts=4 et ai:
+# vim:se tw=0 sts=4 ts=4 sw=4 et ai:
 """
 Copyright © 2024 Osamu Aoki
 
@@ -26,15 +26,6 @@ import locale
 # For sub-commands
 import os
 import os.path
-import sys
-
-#######################################################################
-# Global variables
-#######################################################################
-verbose = 0  # quiet
-# verbose = 1: default
-# verbose = 2: verbose
-# verbose = 3: debug
 
 #######################################################################
 # ZEN HAN conversion table (exclude comma and include space)
@@ -43,6 +34,61 @@ ZEN = "".join(chr(0xFF01 + i) for i in range(94)).replace("，", "　")
 HAN = "".join(chr(0x21 + i) for i in range(94)).replace(",", " ")
 
 ZEN2HAN = str.maketrans(ZEN, HAN)
+
+
+#######################################################################
+# set default account to be assigned
+#######################################################################
+def check_match(rowx1, name):
+    # match starting portion
+    return rowx1[: len(name)] == name
+
+
+def check_substr(rowx1, name):
+    return name in rowx1
+
+
+def update_rowx4(rowx):
+    rowx4 = rowx[4]
+    if (
+        check_match(rowx[1], "AMAZON.CO.JP")
+        or check_match(rowx[1], "大丸")
+        or check_match(rowx[1], "神戸阪急")
+    ):
+        if check_substr(rowx[1], "化粧品"):
+            rowx4 = "5化粧品"
+        elif check_substr(rowx[1], "婦人") or check_substr(rowx[1], "紳士"):
+            rowx4 = "3衣料品"
+        elif int(rowx[2]) < 3000:
+            rowx4 = "1生活費"
+        else:
+            rowx4 = "不明-JPY"
+    if (
+        check_match(rowx[1], "イスズ")
+        or check_match(rowx[1], "カルディ")
+        or check_match(rowx[1], "業務スーパー")
+    ):
+        if int(rowx[2]) < 10000:
+            rowx4 = "1生活費"
+        else:
+            rowx4 = "不明-JPY"
+    if check_match(rowx[1], "ユニクロ"):
+        rowx4 = "3衣料品"
+    if "医院" in rowx[1] or "ビヨウイン" in rowx[1] or "クリニック" in rowx[1] or "薬局" in rowx[1]:
+        rowx4 = "4医療費"
+    if "ガス利用料金" in rowx[1]:
+        rowx4 = "費用:公:ガス"
+    if "水道局" in rowx[1]:
+        rowx4 = "費用:公:水道"
+    if "電気料金" in rowx[1]:
+        rowx4 = "費用:公:電気"
+    # 必ずnon-NULL return
+    if rowx4 == "":
+        if int(rowx[2]) < 2000:
+            rowx4 = "1生活費"
+        else:
+            rowx4 = "不明-JPY"
+    return rowx4
 
 
 #######################################################################
@@ -55,6 +101,9 @@ def main():
         description="""\
 VISA/DAIMARUカードデーターの前処理フィルター
 
+これは、実際に使用しているスクリプトから、個人的状況詳細が絡む処理関連部分を削除し
+て簡素化した公開用のスケルトンバージョンです。
+
 VISAカードの使用履歴はcsvダウンロードできるのは良いのですが、そのまま
 GnuCacheに読み込むとなんとも使い勝手がよろしくありません。
 
@@ -64,7 +113,9 @@ GnuCacheに読み込むとなんとも使い勝手がよろしくありません
 合わせて、エンコーディングをSJISからUTF-8にし、全角数字英字は半角化し、
 半角スペース連続２は１にします。(全角カタカナ、コンマは無変換)
 
-一般VISA 確定　支払い明細元ファイルのカラム構成　（＊のみ処理、すべて１回払で扱う）
+25日〆確定とは、26日からデーターが入手可能。
+
+一般VISA 25日〆確定　支払い明細元ファイルのカラム構成　（＊のみ処理、すべて１回払で扱う）
 0: ご利用日 ＊ (""行は無視、"青木　修"行以外は家族扱い)
 1: ご利用店名 ＊
 2: ご利用金額
@@ -76,7 +127,7 @@ GnuCacheに読み込むとなんとも使い勝手がよろしくありません
 : 内手数料 換算レート
 : 内手数料 換算日
 
-DAIMARU 確定　支払い明細元ファイルのカラム構成　（＊のみ処理、すべて１回払で扱う）
+DAIMARU 25日〆確定　支払い明細元ファイルのカラム構成　（＊のみ処理、すべて１回払で扱う）
 0: 支払変更　（データー行の場合）　最初行が"4980-"でスタート
 1: ご利用日　＊
 2: ご利用店　＊　（大丸かどうかのみ）
@@ -87,6 +138,9 @@ DAIMARU 確定　支払い明細元ファイルのカラム構成　（＊のみ
 7: 支払回数
 8: お支払総額　＊
 9: 外貨処理
+
+デパート系は割引やポイント利用などが複数行に渡って記載されるので、それをGnuCashに合うように
+整形することも行っています。
 
 一般 未定　支払い予定元ファイルのカラム構成　（＊のみ処理、すべて１回払で扱う）
 0: ご利用日 ＊
@@ -104,16 +158,19 @@ DAIMARU 確定　支払い明細元ファイルのカラム構成　（＊のみ
 
 標準出力
 0: 利用日
-1: 利用明細 (本人以外は" *")
+1: 説明　＝　利用明細 (本人以外は" *")
 2: 利用金額
 3: 補足
+4: 資金移動先勘定項目
 
 copyright 2024 Osamu Aoki <osamu@debian.org>
 license: GPL 2.0+
 
 """,
     )
-    parser.add_argument("-v", "--verbose", action="count", default=1, help="饒舌モード")
+    parser.add_argument(
+        "-v", "--verbose", action="store_true", default=False, help="饒舌モード"
+    )
     parser.add_argument("csv", help="ダウンロードされたCSVファイル名")
     parser.set_defaults(func=help, parser=parser)
     #######################################################################
@@ -133,12 +190,23 @@ license: GPL 2.0+
         datawriter = csv.writer(csvout, dialect="excel")
         with open(args.csv, "r", newline="", encoding="SJIS") as csvin:
             datareader = csv.reader(csvin, dialect="excel")
-            for row in datareader:
-                rowx = ["", "", 0, ""]  # initialize
+            for i, row in enumerate(datareader):
+                rowx = ["", "", 0, "", ""]  # initialize
                 if row[0] == "":
+                    if verbose:
+                        print("{}: columns={} <EMPTY>".format(i, len(row)))
                     pass  # ignore
-                elif ord(row[0][0]) >= 0x2000:  # 一般VISA 確定（全角で始まる）
+                elif (
+                    ord(row[0][0]) >= 0x2000 and card_type == "VISA"
+                ):  # 一般VISA 確定（全角で始まる）
+                    card_type = "VISA"
                     data_phase = "final"
+                    if verbose:
+                        print(
+                            "{}: columns={} <SET-VISA-FINAL> {}".format(
+                                i, len(row), row[:10]
+                            )
+                        )
                     if account_index == 0:
                         user_suffix = ""
                     else:
@@ -147,6 +215,12 @@ license: GPL 2.0+
                 elif len(row[0]) >= 12:  # 大丸カード番号 は長い（12文字以上）
                     card_type = "DAIMARU"
                     data_phase = "final"
+                    if verbose:
+                        print(
+                            "{}: columns={} <SET-DAIMARU-FINAL> {}".format(
+                                i, len(row), row[:10]
+                            )
+                        )
                     if account_index == 0:
                         user_suffix = ""
                     else:
@@ -154,6 +228,12 @@ license: GPL 2.0+
                     pass  # ignore
                     account_index += 1
                 elif data_phase == "final" and card_type == "VISA":
+                    if verbose:
+                        print(
+                            "{}: columns={} <VISA-FINAL> {}".format(
+                                i, len(row), row[:10]
+                            )
+                        )
                     rowx[0] = row[0]
                     rowx[1] = row[1].translate(ZEN2HAN).replace("  ", " ") + user_suffix
                     rowx[2] = row[5]
@@ -163,8 +243,15 @@ license: GPL 2.0+
                         )
                     else:
                         rowx[3] = "final"
+                    rowx[4] = update_rowx4(rowx)
                     datawriter.writerow(rowx)
                 elif data_phase == "final" and card_type == "DAIMARU":
+                    if verbose:
+                        print(
+                            "{}: columns={} <DAIMARU-FINAL> {}".format(
+                                i, len(row), row[:10]
+                            )
+                        )
                     rowx[0] = row[1]
                     if row[8] == "":  # 以下の行とまとめる
                         usage_string = usage_string + "+" + row[3]
@@ -210,8 +297,11 @@ license: GPL 2.0+
                             )
                         else:
                             rowx[3] = "final"
+                        rowx[4] = update_rowx4(rowx)
                         datawriter.writerow(rowx)
                 else:  # data_phase == "" -- 予定支出額
+                    if verbose:
+                        print("{}: columns={} <PLAN> {}".format(i, len(row), row[:10]))
                     rowx[0] = row[0]
                     if row[2] == "ご本人":
                         user_suffix = ""
@@ -229,6 +319,9 @@ license: GPL 2.0+
                         )
                     else:
                         rowx[3] = ""
+                    rowx[2] = rowx[2].translate(ZEN2HAN).replace("  ", " ")
+                    rowx[4] = update_rowx4(rowx)
+                    rowx[1] = "仮 " + rowx[1]
                     datawriter.writerow(rowx)
     return
 

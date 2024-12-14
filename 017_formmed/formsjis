@@ -75,9 +75,8 @@ license: GPL 2.0+
         datawriter = csv.writer(csvout, dialect="excel")
         with open(args.cvs, "r", newline="", encoding="SJIS") as csvin:
             datareader = csv.reader(csvin, dialect="excel")
-            for row in datareader:
-                col = len(row)
-                print(col)
+            for i, row in enumerate(datareader):
+                print("row={}, column={}: {}".format(i,len(row), row[:5]))
                 datawriter.writerow(row)
     return
 
